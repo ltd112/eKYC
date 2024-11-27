@@ -1,0 +1,2 @@
+liveness_detection/landmarks/emotion_weights.pt filter=lfs diff=lfs merge=lfs -text
+liveness_detection/landmarks/shape_predictor_68_face_landmarks.dat filter=lfs diff=lfs merge=lfs -text
