@@ -191,7 +191,27 @@ async def process_cccd(file: UploadFile = File(...)):
 
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
+# API để lấy một ảnh cụ thể
+# Đường dẫn đến thư mục lưu ảnh
+UPLOAD_FOLDER = "crop"
 
+# Kiểm tra nếu thư mục chưa tồn tại thì tạo mới
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+@app.post("/upload-image")
+async def upload_image(file: UploadFile = File(...)):
+    try:
+        # Đặt tên file cố định là img_cccd.jpg
+        file_name = "img_cccd.jpg"
+        file_path = os.path.join(UPLOAD_FOLDER, file_name)
+
+        # Lưu ảnh vào thư mục
+        with open(file_path, "wb") as image_file:
+            image_file.write(await file.read())
+
+        return JSONResponse(content={"message": f"Image '{file_name}' uploaded successfully!"}, status_code=200)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
     
 # Liveness detection API
 # Variables to store the current challenge and the state of the user
