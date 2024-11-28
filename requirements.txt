@@ -4,6 +4,8 @@ opencv-python
 torch
 deepface
 paddlepaddle
+paddleocr
 ultralytics
 mtcnn
 dlib
+facenet-pytorch
