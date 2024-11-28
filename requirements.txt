@@ -6,3 +6,4 @@ deepface
 paddlepaddle
 ultralytics
 mtcnn
+dlib
