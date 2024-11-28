@@ -2,6 +2,8 @@ from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse , FileResponse
 # import httpexception
 
+# add middleware cors
+from fastapi.middleware.cors import CORSMiddleware
 
 import shutil
 import os
@@ -28,6 +30,13 @@ import dlib
 
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Khởi tạo model YOLO và PaddleOCR
 MODEL_PATH = "./models/trained_yolov8_model.pt"
