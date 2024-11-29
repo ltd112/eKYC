@@ -105,6 +105,7 @@ async def verify_with_camera(file: UploadFile = File(...)):
             save_cropped_face(face1, face1_path)
         else:
             print("Error: No face detected in cropped_cccd.jpg.")
+        
         # Lưu tạm thời ảnh webcam
         temp_file = f"temp_{file.filename}"
         with open(temp_file, "wb") as f:
@@ -133,15 +134,21 @@ async def verify_with_camera(file: UploadFile = File(...)):
         # Xóa tệp tạm
         os.remove(temp_file)
 
+        # Kiểm tra khoảng cách với ngưỡng
+        threshold = 0.6
+        verified = result["distance"] <= threshold
+
         # Trả về kết quả xác thực
         return {
-            "verified": result["verified"],
+            "verified": verified,
             "distance": result["distance"],
-            "similarity_metric": "cosine"
+            "similarity_metric": "cosine",
+            "threshold": threshold
         }
 
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
+
 #done
 # API endpoint
 #OCR API
