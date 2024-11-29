@@ -84,8 +84,10 @@ async def detect_orientation(file: UploadFile = File(...)):
         
         faces = detector(gray)
         
+        # Check if no face is detected
         if len(faces) == 0:
-            raise HTTPException(status_code=400, detail="No face detected in the image.")
+            os.remove(temp_file)
+            return JSONResponse(content={"error": "Không phát hiện khuôn mặt trong ảnh."}, status_code=400)
         
         # Process the first detected face (if multiple faces are detected)
         face = faces[0]
@@ -98,7 +100,7 @@ async def detect_orientation(file: UploadFile = File(...)):
         return {"orientation": orientation}
     
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return JSONResponse(content={"error": str(e)}, status_code=500)
 #done            
 # face verification API         
 @app.post("/verify-with-camera/")
