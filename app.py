@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse , FileResponse
 # import httpexception
 
@@ -234,7 +234,7 @@ async def upload_image(file: UploadFile = File(...)):
 
         return JSONResponse(content={"message": f"Image '{file_name}' uploaded successfully!"}, status_code=200)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return JSONResponse(content={"error": str(e)}, status_code=500)
     
 # Liveness detection API
 # Variables to store the current challenge and the state of the user
