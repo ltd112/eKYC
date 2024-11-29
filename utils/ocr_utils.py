@@ -18,10 +18,12 @@ def extract_cccd_content(ocr, image):
     result = ocr.ocr(image, cls=True)
     detected_texts = [clean_text(line[-1][0]) for line in result[0]]
     combined_text = " ".join(detected_texts)
+    print(combined_text)
     
-    cccd_regex = r"\b\d{9,12}\b"
+    # cccd_regex = r"\b\d{9,12}\b"
+    cccd_regex = r"(\d{12})"
     name_regex = r"(Ho va ten|Full name)\s+([A-Z]{2,25}(?: [A-Z]{2,25}){0,4})"
-    dob_regex = r"\d{2}[\/\-]\d{2}[\/\-]\d{4}"
+    dob_regex = r"(\d{2}[\/\-]\d{2}[\/\-]\d{4})"
     
     cccd = None
     name = None

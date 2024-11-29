@@ -46,7 +46,12 @@ app.add_middleware(
 # Khởi tạo model YOLO và PaddleOCR
 MODEL_PATH = "./models/trained_yolov8_model.pt"
 model = YOLO(MODEL_PATH)
-ocr = PaddleOCR(use_angle_cls=True, lang='vi')
+ocr = PaddleOCR(
+        use_angle_cls=True, 
+        lang='vi', 
+        det_algorithm='DB',
+        rec_algorithm='CRNN'
+    )
 
 # Device setup cho MTCNN
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
