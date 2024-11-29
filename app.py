@@ -30,6 +30,11 @@ import dlib
 
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3408",  #địa chỉ frontend Angular
+]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],

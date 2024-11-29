@@ -62,10 +62,10 @@ class FaceOrientationDetector():
                 return 'up'
 
         elif left_angle < right_angle:
-            return 'right'
+            return 'left'
 
         elif right_angle < left_angle:
-            return 'left'
+            return 'right'
 
         # Thêm hướng nghiêng
         if chin_angle > self.tilt_threshold:
